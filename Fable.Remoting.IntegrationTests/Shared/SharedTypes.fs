@@ -114,6 +114,7 @@ type IServer = {
     echoGenericMap : Map<string, Maybe<int>> -> Async<Map<string, Maybe<int>>>
     // maps
     echoMap : Map<string, int> -> Async<Map<string, int>>
+    echoTupleMap : Map<int * int, int> -> Async<Map<int * int, int>>
     mapRecordAsKey: unit -> Async<Map<RecordAsKey, int>>
     // errors
     throwError : unit -> Async<string>
@@ -146,9 +147,7 @@ type IServer = {
     echoSingleDULong : SingleLongCase -> Async<SingleLongCase>
     echoLongInGenericUnion : Maybe<int64> -> Async<Maybe<int64>>
     echoAnonymousRecord : Maybe<{| name: string |}> -> Async<Maybe<{| name: string |}>>
-    // TODO: Support anonymous records as generic type arguments
-    // See https://github.com/Zaid-Ajaj/Fable.Remoting/issues/132
-    //echoNestedAnonRecord : Maybe<{| nested: {| name: string |} |}> -> Async<Maybe<{| nested: {| name: string |} |}>>
+    echoNestedAnonRecord : Maybe<{| nested: {| name: string |} |}> -> Async<Maybe<{| nested: {| name: string |} |}>>
 }
 
 let routeBuilder typeName methodName =

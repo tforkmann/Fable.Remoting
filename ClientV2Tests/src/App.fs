@@ -48,6 +48,14 @@ let serverTests =
                 do test.equal result 5
             }
 
+        testCaseAsync "IServer.echoTupleMap" <|
+            async {
+                let! result = server.echoTupleMap (Map.ofList [(1,1), 1])
+                match Map.toList result with
+                | [ (1,1), 1 ] -> test.pass()
+                | otherwise -> test.failwith "Map<int * int, int> fails"
+            }
+
         testCaseAsync "IServer.returnUnit" <|
             async {
                 let! result = server.returnUnit()
@@ -84,14 +92,13 @@ let serverTests =
                 | otherwise -> test.failwith "Unexpected result"
             }
 
-        // See https://github.com/Zaid-Ajaj/Fable.Remoting/issues/132
-        //testCaseAsync "IServer.echoNestedAnonRecord" <|
-        //    async {
-        //        let! result = server.echoNestedAnonRecord (Just {| nested  = {| name = "John" |} |})
-        //        match result with
-        //        | Just record -> test.equal "John" record.nested.name
-        //        | otherwise -> test.failwith "Unexpected result"
-        //    }
+        testCaseAsync "IServer.echoNestedAnonRecord" <|
+            async {
+                let! result = server.echoNestedAnonRecord (Just {| nested  = {| name = "John" |} |})
+                match result with
+                | Just record -> test.equal "John" record.nested.name
+                | otherwise -> test.failwith "Unexpected result"
+            }
 
         testCaseAsync "IServer.binaryContent" <|
             async {

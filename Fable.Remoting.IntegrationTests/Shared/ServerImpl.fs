@@ -47,9 +47,7 @@ let server : IServer  = {
     echoRecord = Async.result
     echoRemoteWorkEntity = Async.result
     echoAnonymousRecord = Async.result
-    // TODO: Support anonymous records as generic type arguments
-    // See https://github.com/Zaid-Ajaj/Fable.Remoting/issues/132
-    // echoNestedAnonRecord = Async.result
+    echoNestedAnonRecord = Async.result
     echoTree = Async.result
     echoGenericRecordInt = Async.result
     echoNestedGeneric = Async.result
@@ -79,6 +77,7 @@ let server : IServer  = {
     echoBigInteger = Async.result
     throwError = fun () -> async { return! failwith "Generating custom server error" }
     echoMap = Async.result
+    echoTupleMap = Async.result
     multiArgFunc = fun str n b -> async { return str.Length + n + (if b then 1 else 0) }
     overriddenFunction = fun str -> async { return! failwith str }
     customStatusCode = fun () -> async {return "No content"}
